@@ -34,7 +34,7 @@ PIXI.CanvasGraphics.renderGraphics = function(graphics, context)
         var points = data.points;
 
         context.strokeStyle = color = '#' + ('00000' + ( data.lineColor | 0).toString(16)).substr(-6);
-
+        context.setLineDash(data.lineDash);
         context.lineWidth = data.lineWidth;
 
         if(data.type === PIXI.Graphics.POLY)
