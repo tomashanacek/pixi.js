@@ -73,7 +73,21 @@ PIXI.CanvasGraphics.renderGraphics = function(graphics, context)
             {
                 context.globalAlpha = data.fillAlpha * worldAlpha;
                 context.fillStyle = color = '#' + ('00000' + ( data.fillColor | 0).toString(16)).substr(-6);
+
+                if (data.shadow) {
+                    context.shadowBlur = data.shadow.blur;
+                    context.shadowOffsetX = data.shadow.offsetX;
+                    context.shadowOffsetY = data.shadow.offsetY;
+                    context.shadowColor = data.shadow.color;
+                }
+
                 context.fillRect(points[0], points[1], points[2], points[3]);
+
+                // reset shadow to defaults
+                context.shadowBlur = 0;
+                context.shadowOffsetX = 0;
+                context.shadowOffsetY = 0;
+                context.shadowColor = 'rgba(0, 0, 0, 0)';
 
             }
             if(data.lineWidth)

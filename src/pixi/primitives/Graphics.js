@@ -43,6 +43,14 @@ PIXI.Graphics = function()
     this.lineDash = [];
 
     /**
+     * Shadow
+     *
+     * @property shadow
+     * @type {Object}
+     */
+    this.shadow = null;
+
+    /**
      * The color of any lines drawn
      *
      * @property lineColor
@@ -265,7 +273,7 @@ PIXI.Graphics.prototype.drawRect = function( x, y, width, height )
     if (!this.currentPath.points.length) this.graphicsData.pop();
 
     this.currentPath = {lineWidth:this.lineWidth, lineColor:this.lineColor, lineAlpha:this.lineAlpha, lineDash:this.lineDash,
-                        fillColor:this.fillColor, fillAlpha:this.fillAlpha, fill:this.filling,
+                        fillColor:this.fillColor, fillAlpha:this.fillAlpha, fill:this.filling, shadow: this.shadow,
                         points:[x, y, width, height], type:PIXI.Graphics.RECT};
 
     this.graphicsData.push(this.currentPath);

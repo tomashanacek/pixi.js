@@ -4,7 +4,7 @@
  * Copyright (c) 2012-2014, Mat Groves
  * http://goodboydigital.com/
  *
- * Compiled: 2014-05-19
+ * Compiled: 2014-07-30
  *
  * pixi.js is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license.php
@@ -8766,7 +8766,21 @@ PIXI.CanvasGraphics.renderGraphics = function(graphics, context)
             {
                 context.globalAlpha = data.fillAlpha * worldAlpha;
                 context.fillStyle = color = '#' + ('00000' + ( data.fillColor | 0).toString(16)).substr(-6);
+
+                if (data.shadow) {
+                    context.shadowBlur = data.shadow.blur;
+                    context.shadowOffsetX = data.shadow.offsetX;
+                    context.shadowOffsetY = data.shadow.offsetY;
+                    context.shadowColor = data.shadow.color;
+                }
+
                 context.fillRect(points[0], points[1], points[2], points[3]);
+
+                // reset shadow to defaults
+                context.shadowBlur = 0;
+                context.shadowOffsetX = 0;
+                context.shadowOffsetY = 0;
+                context.shadowColor = 'rgba(0, 0, 0, 0)';
 
             }
             if(data.lineWidth)
@@ -8972,6 +8986,14 @@ PIXI.Graphics = function()
      * @type {Array}
      */
     this.lineDash = [];
+
+    /**
+     * Shadow
+     *
+     * @property shadow
+     * @type {Object}
+     */
+    this.shadow = null;
 
     /**
      * The color of any lines drawn
@@ -9196,7 +9218,7 @@ PIXI.Graphics.prototype.drawRect = function( x, y, width, height )
     if (!this.currentPath.points.length) this.graphicsData.pop();
 
     this.currentPath = {lineWidth:this.lineWidth, lineColor:this.lineColor, lineAlpha:this.lineAlpha, lineDash:this.lineDash,
-                        fillColor:this.fillColor, fillAlpha:this.fillAlpha, fill:this.filling,
+                        fillColor:this.fillColor, fillAlpha:this.fillAlpha, fill:this.filling, shadow: this.shadow,
                         points:[x, y, width, height], type:PIXI.Graphics.RECT};
 
     this.graphicsData.push(this.currentPath);
