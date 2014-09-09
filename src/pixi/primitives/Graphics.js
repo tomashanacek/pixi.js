@@ -549,8 +549,8 @@ PIXI.Graphics.prototype.drawRoundedRect = function( x, y, width, height, radius 
 {
     if (!this.currentPath.points.length) this.graphicsData.pop();
 
-    this.currentPath = {lineWidth:this.lineWidth, lineColor:this.lineColor, lineAlpha:this.lineAlpha,
-                        fillColor:this.fillColor, fillAlpha:this.fillAlpha, fill:this.filling,
+    this.currentPath = {lineWidth:this.lineWidth, lineColor:this.lineColor, lineAlpha:this.lineAlpha, lineDash:this.lineDash,
+                        fillColor:this.fillColor, fillAlpha:this.fillAlpha, fill:this.filling, shadow: this.shadow,
                         points:[x, y, width, height, radius], type:PIXI.Graphics.RREC};
 
     this.graphicsData.push(this.currentPath);
